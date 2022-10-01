@@ -5,11 +5,22 @@
 * License: https://bootstrapmade.com/license/
 */
 
-#container {
-        height: 1000px;
-        width: 1000px;
-        background-color: black;
-    }
+#svgcontainer {
+  height: 500px;
+  width: 500px;
+  background-color: black;
+  /*margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;*/
+  padding: 5px 50px 10px 50px;
+  background-color: whitesmoke;
+}
+
+svg {
+  background-color: whitesmoke;
+}
+
+
 
 /*--------------------------------------------------------------
 # General

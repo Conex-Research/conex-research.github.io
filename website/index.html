@@ -29,9 +29,7 @@
 
   <!-- Visualisations -->
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://code.highcharts.com/maps/highmaps.js"></script>
-  <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/mapdata/countries/us/us-all.js"></script>
+
 
 
   <!--<script type="module">
@@ -117,7 +115,12 @@
           <div class="col-lg-4" data-aos="fade-right">
             <!--<img src="assets/img/conex_seal.gif" class="img-fluid" alt="">-->
 
-            <div id="container"></div>
+            <div id="svgcontainer">
+              <h1>Getting started with map visualization</h1>
+              <p>In this post we will create a basic map visualization in D3js for beginner.</p>
+              <div id="svganchor"></div>
+              <br>
+            </div>
 
           </div>
           <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
@@ -671,80 +674,72 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Visualisation stuff -->
-  <script>
-      // Prepare demo data
-// Data is joined to map using value of 'hc-key' property by default.
-// See API docs for 'joinBy' for more info on linking data and map.
-var data = [
-    ['us-ar', 18],
-    ['us-al', 21],
-    ['us-ms', 22],
-    ['us-nc', 23],
-    ['us-va', 24],
-    ['us-ky', 35],
-    ['us-tn', 37],
-    ['us-wv', 38],
-    ['us-la', 40],
-    ['us-fl', 41],
-    ['us-ga', 42],
-    ['us-sc', 43]
-];
+      
+    <script type="text/javascript">
 
-// Create the chart
-Highcharts.mapChart('container', {
-    chart: {
-        map: 'countries/us/us-all',
-        animation: false,
-        events: {
-            load: function() {
-                var points = this.series[0].points;
+        //Width and height
+        let w = 100;
+        let h = 100;
 
-                points.forEach(function(p) {
-                    if (!p.value) {
-                        p.remove();
+        //Define map projection
+        let projection = d3.geo.mercator()
+            .center([132, -28])
+            .translate([w / 2, h / 2])
+            .scale(100);
 
-                    }
+
+        //Define path generator
+        let path = d3.geo.path()
+            .projection(projection);
+
+        let color = d3.scale.ordinal()
+            .range(['Azure']);
+
+        //Create SVG
+        let svg = d3.select("#svganchor")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+        //Load in GeoJSON data
+        d3.json("aust.json", (json) => {
+
+
+            //Binding data and creating one path per GeoJSON feature
+            svg.selectAll("path")
+                .data(json.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("stroke", "dimgray")
+                .attr("fill", (d, i) => { return color(i) });
+
+            //States
+            svg.selectAll("text")
+                .data(json.features)
+                .enter()
+                .append("text")
+                .attr("fill", "darkslategray")
+                .attr("transform", (d) => { return "translate(" + path.centroid(d) + ")"; })
+                .attr("text-anchor", "middle")
+                .attr("dy", ".35em")
+                .text((d) => {
+                    return d.properties.STATE_NAME;
                 });
 
-                this.mapZoom(0.56, 7251, -5218);
-            }
-        }
-    },
+            //Append the name
+            svg.append("text")
+                .attr("x", 0)
+                .attr("y", 340)
+                .attr("font-size", 90)
+                .attr("font-weight", "bold")
+                .attr("font-family", "Times New Roman")
+                .attr("text-anchor", "middle")
+                .attr("opacity", 0.5)
 
-    mapNavigation: {
-        enabled: false,
-        buttonOptions: {
-            verticalAlign: 'bottom'
-        }
-    },
+        });
 
-    colorAxis: {
-        min: 0
-    },
-
-    series: [{
-        data: data,
-        name: 'Random data',
-        states: {
-            hover: {
-                color: '#BADA55'
-            }
-        },
-        dataLabels: {
-            enabled: true,
-            format: '{point.name}'
-        }
-    }, {
-        name: 'Separators',
-        type: 'mapline',
-        data: Highcharts.geojson(Highcharts.maps['countries/us/us-all'], 'mapline'),
-        color: 'silver',
-        showInLegend: false,
-        enableMouseTracking: false
-    }]
-});
-
-  </script>
+    </script>
 
 
   <!-- END -->

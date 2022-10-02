@@ -237,7 +237,7 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../img/mississippi.jpg") top center;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../img/mississippi.webp") top center;
   /* https://www.pexels.com/de-de/foto/landschaft-baume-dammerung-mississippi-8569922/ */
   background-size: cover;
 }

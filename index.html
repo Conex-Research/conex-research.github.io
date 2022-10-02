@@ -109,8 +109,8 @@
     <section id="">
       <div class="container" class="about">
         <div class="section-title">
-          <h2>Join us on a tour through our Solar System</h2>
-          <p>By understanding the climate and geomorphology on other planets of our Solar System, we can learn about our own Earth.</p>
+          <h2>Travel with our Solar System Time Machine</h2>
+          <p>By understanding the climate and geomorphology on other planets and moons of our Solar System, we can learn about our own Earth. Understanding other celestial bodies is like a time machine: We can look into possible past and future scenarios, as some are lacking greenhouse effects, and some experience too much.</p>
         </div>
       </div>
     </section>
@@ -434,6 +434,13 @@ var cities = [
   //{lat: 30.207972, long: -92.681870, name: "Jennings"},
 ];
 
+var Bathy;
+d3.csv("https://raw.githubusercontent.com/Conex-Research/conex-research.github.io/main/data/ADCP_20210325-154526_WLO_VP-MW-center_001_Rep1_Bathy.csv", function(row) {
+console.log(row)
+
+  Bathy = {"long": row.longitude, "lat": row.latitude, "river_depth": row.river_depth, "fill": "##119900"};
+})
+
 var Atchafalaya = [
               {"long":-91.445,"lat":29.510, name: "Atchafalaya River and Terrebonne Basins, Louisiana", id:"Atchafalaya"},
               {"long":-91.445,"lat":29.171},
@@ -651,6 +658,19 @@ d3.json("https://raw.githubusercontent.com/Conex-Research/conex-research.github.
      .attr("y", function(d){ return projection([d.long+0.07, d.lat-0.03])[1] })
      .attr("text-anchor", "start")
      .text(function(d){ return d.name })
+
+
+    svg
+      .selectAll("river_circle")
+      .data(Bathy)
+      .enter()
+      .append("circle")
+        .attr("cx", function(d){ return projection([d.long, d.lat])[0] })
+        .attr("cy", function(d){ return projection([d.long, d.lat])[1] })
+        .attr("r", 2)
+        .attr("class", "river")
+        .style("fill", d.colour)
+
     ;
 })
 

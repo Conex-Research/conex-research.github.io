@@ -6,9 +6,8 @@
 */
 
 
-.circle:hover{
-  stroke: black;
-  stroke-width: 4px;
+.poly:hover{
+  stroke:#e44b8d;
 }
 
 .content{

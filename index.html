@@ -57,7 +57,7 @@
     <div class="d-flex flex-column">
 
       <div class="profile">
-        <img src="assets/img/conex_seal.gif" alt="" class="img-fluid rounded-circle">
+        <img src="assets/img/conex_seal.webp" alt="" class="img-fluid rounded-circle">
         <h1 class="text-light"><a href="index.html">Conex Research</a></h1>
         <div class="social-links mt-3 text-center">
           <a href="https://twitter.com/ConexResearch" class="twitter"><i class="bx bxl-twitter"></i></a>
@@ -446,7 +446,7 @@ var Atchafalaya = [
 // need to upload it to github
 // Load external data and boot
 // https://d3-graph-gallery.com/graph/bubblemap_tooltip.html
-d3.json("https://raw.githubusercontent.com/Conex-Research/mississippi/main/website/us.json", function(data){
+d3.json("https://raw.githubusercontent.com/Conex-Research/conex-research.github.io/data/us-filtered.json", function(data){
 
   // "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"
 
@@ -513,7 +513,7 @@ d3.json("https://raw.githubusercontent.com/Conex-Research/mississippi/main/websi
                 "translate(" + margin.left + "," + margin.top + ")");
 
       //Read the data
-      d3.csv("https://raw.githubusercontent.com/Conex-Research/conex-research.github.io/main/science/DeltaX_Turbidity_Data_V3_2113/DeltaX_Turbidity_Data_V3_2113/data/DeltaX_Fall2021_AirPressure_Atchafalaya_MikeIsland_MW_channel.csv", function(data) {
+      d3.csv("https://raw.githubusercontent.com/Conex-Research/conex-research.github.io/main/data/DeltaX_Turbidity_Data_V3_2113/DeltaX_Fall2021_AirPressure_Atchafalaya_MikeIsland_MW_channel.csv", function(data) {
 
         // group the data: I want to draw one line per group
         var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
